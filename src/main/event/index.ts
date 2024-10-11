@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { BrowserWindow, ipcMain, ipcRenderer } from 'electron'
-import { systemArch, systemOs } from './utils/base'
+import { ipcMain } from 'electron'
+import { appInfo, setWinTitle } from './app/base'
+import { onMessage } from './message'
 
 /** 客户端配置数据 */
 export const config = {
@@ -13,68 +13,25 @@ export const config = {
     /** 应用名称 */
     name: 'test-af',
     /** 应用版本 */
-    version: '1.0.0',
-    /** 当前系统 架构 */
-    os: `${systemOs()}_${systemArch()}`
+    version: '1.0.0'
   }
 }
 
-/** 事件 */
-export const event = {
-  'app-init': {
-    type: 'func',
-    count: 1,
-    exec: (): void => {
-      console.log('app-init')
-    }
-  },
-  'app-setting-set': {
-    type: 'ipcMain-handler',
-    exec: (event, key: string, value): void => {
-      if (!event) return
-      console.log('app-setting', event.sender.id, key, value)
-    }
-  },
-  'app-setting-get': {
-    type: 'ipcMain-handler',
-    exec: async (event): Promise<typeof config> => {
-      console.log('app-setting-get', event.sender.id)
-      return config
-    }
-  }
+const ipcMainHandler = {
+  'app-info': appInfo
 }
 
-type EventFunc<T extends (event: Electron.IpcMainEvent, ...args: any[]) => any> = T extends (
-  event: Electron.IpcMainEvent,
-  ...args: infer P
-) => infer R
-  ? (...args: P) => R
-  : never
-
-export type Event = {
-  'app-setting-set': {
-    type: 'ipcRenderer-handler'
-    func: EventFunc<(typeof event)['app-setting-set']['exec']>
-  }
-  'app-setting-get': {
-    type: 'ipcMain-handler'
-    func: EventFunc<(typeof event)['app-setting-get']['exec']>
-  }
+const ipcMainOn = {
+  'app-setTitle': setWinTitle,
+  /* 接收消息 */
+  'IPC-onMessage': onMessage
 }
 
 export const Appinit = (): void => {
-  Object.keys(event).forEach((key) => {
-    const { type, exec } = event[key]
-    if (type === 'func') {
-      exec()
-      return
-    }
-    if (type === 'ipcMain-handler') {
-      return ipcMain.handle(key, (event, ...args) => exec(event, ...args))
-    }
-    if (type === 'ipcMain-on') {
-      ipcMain.on(key, (event, ...args) => exec(event, ...args))
-      return
-    }
+  Object.keys(ipcMainHandler).forEach((key) => {
+    ipcMain.handle(key, ipcMainHandler[key])
+  })
+  Object.keys(ipcMainOn).forEach((key) => {
+    ipcMain.on(key, ipcMainOn[key])
   })
 }
