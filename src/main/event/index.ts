@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import { appInfo, setWinTitle } from './app/base'
+import { appInfo, getUserSystemInfo, setWinTitle } from './app/base'
 import { onMessage } from './message'
 
 /** 客户端配置数据 */
@@ -13,12 +13,13 @@ export const config = {
     /** 应用名称 */
     name: 'test-af',
     /** 应用版本 */
-    version: '1.0.0'
+    version: '1.0.0-beta'
   }
 }
 
 const ipcMainHandler = {
-  'app-info': appInfo
+  'app-info': appInfo,
+  'system-info': getUserSystemInfo
 }
 
 const ipcMainOn = {
@@ -27,7 +28,7 @@ const ipcMainOn = {
   'IPC-onMessage': onMessage
 }
 
-export const Appinit = (): void => {
+export const initEvent = (): void => {
   Object.keys(ipcMainHandler).forEach((key) => {
     ipcMain.handle(key, ipcMainHandler[key])
   })

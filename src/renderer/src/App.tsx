@@ -1,8 +1,14 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
+import { useEffect } from 'react'
 
 function App(): JSX.Element {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const appinfo = () => window.electron.ipcRenderer.invoke('app-info')
+
+  useEffect(() => {
+    appinfo().then((res) => console.log(res))
+  })
 
   return (
     <>

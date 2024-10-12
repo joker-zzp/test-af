@@ -3,12 +3,16 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { appData } from './env'
+import { initEvent } from './event'
+import { initSystemInfo } from './util'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1200,
+    height: 720,
+    minHeight: 600,
+    minWidth: 800,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -44,6 +48,9 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
+
+  initEvent()
+  initSystemInfo()
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
