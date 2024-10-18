@@ -1,13 +1,33 @@
+/**
+ * 配置文件数据类型
+ * @param T 配置数据类型
+ */
+export type CFG<T = unknown> = {
+  name: string
+  module: string
+  savePath?: string
+  data: T
+}
+
 type AppData = {
   mainId: number | null
+  readonly appConfig: {
+    name: string
+    version: string
+    dev?: boolean
+  }
+  conf: CFG[]
+}
+
+export const conf: AppData['appConfig'] = {
+  name: 'my-app',
+  version: '1.0.0-beta'
 }
 
 export const appData: AppData = {
-  mainId: null
-}
-export const conf = {
-  appName: 'my-app',
-  version: '1.0.0-beta'
+  mainId: null,
+  appConfig: conf,
+  conf: []
 }
 
 type SystemInfo = {
@@ -52,3 +72,5 @@ export const systemInfo: SystemInfo = {
 
   env: []
 }
+
+

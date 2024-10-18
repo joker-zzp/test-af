@@ -1,10 +1,16 @@
 {
-  "name": "test-af",
-  "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "name": "af-test",
+  "version": "1.0.0-beta",
+  "description": "自动化测试工厂 - 测试人员办公辅助工具",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "joker-zzp",
   "homepage": "https://electron-vite.org",
+  "build": {
+    "appId": "com.electron.af-test",
+    "productName": "af-test",
+    "copyright": "Copyright © 2023 joker-zzp",
+    "files":
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

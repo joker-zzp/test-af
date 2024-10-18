@@ -14,6 +14,7 @@ function createWindow(): void {
     minHeight: 600,
     minWidth: 800,
     show: false,
+    title: appData.appConfig.name,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
