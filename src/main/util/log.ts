@@ -1,6 +1,6 @@
 import log from 'electron-log/main'
 // import { path } from './base'
-import { is } from '@electron-toolkit/utils'
+import { appData } from '../env'
 
 export function loginit() {
   log.transports.file.level = 'info'
@@ -15,9 +15,9 @@ export function loginit() {
 }
 
 export const logger = {
-  info: is.dev ? console.info : log.info,
-  error: is.dev ? console.error : log.error,
-  warn: is.dev ? console.warn : log.warn,
-  debug: is.dev ? console.debug : log.debug,
-  log: is.dev ? console.log : log.log
+  info: appData.appConfig.dev ? console.info : log.info,
+  error: appData.appConfig.dev ? console.error : log.error,
+  warn: appData.appConfig.dev ? console.warn : log.warn,
+  debug: appData.appConfig.dev ? console.debug : log.debug,
+  log: appData.appConfig.dev ? console.log : log.log
 }

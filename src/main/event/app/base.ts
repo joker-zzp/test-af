@@ -4,7 +4,7 @@ import { conf, systemInfo } from '../../env'
 
 export const appInfo = () => {
   return {
-    name: conf.appName,
+    name: conf.name,
     version: conf.version,
     systemOs: `${systemOs()}_${systemArch()}`
   }
@@ -35,8 +35,8 @@ export const getUserSystemInfo = () => {
 export const setWinTitle = (event, title?: string) => {
   const win = BrowserWindow.fromWebContents(event.sender)
   if (title) {
-    win?.setTitle(`${conf.appName} - ${title}`)
+    win?.setTitle(`${conf.name} - ${title}`)
   } else {
-    win?.setTitle(conf.appName)
+    win?.setTitle(conf.name)
   }
 }

@@ -8,8 +8,7 @@
   "build": {
     "appId": "com.electron.af-test",
     "productName": "af-test",
-    "copyright": "Copyright © 2023 joker-zzp",
-    "files":
+    "copyright": "Copyright © 2023 joker-zzp"
   },
   "scripts": {
     "format": "prettier --write .",
@@ -29,6 +28,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.4",
     "adm-zip": "^0.5.16",
     "electron-log": "^5.2.0"
   },

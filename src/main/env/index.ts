@@ -1,3 +1,6 @@
+import { app } from 'electron'
+import { ExtensionData, ExtensionProgress } from '../util/extension/base'
+
 /**
  * 配置文件数据类型
  * @param T 配置数据类型
@@ -20,8 +23,9 @@ type AppData = {
 }
 
 export const conf: AppData['appConfig'] = {
-  name: 'my-app',
-  version: '1.0.0-beta'
+  name: app.getName(),
+  version: app.getVersion(),
+  dev: true
 }
 
 export const appData: AppData = {
@@ -52,6 +56,8 @@ type SystemInfo = {
   appdata: string | null
   /** 用户资源目录 */
   resource: string | null
+  /** 用户配置目录 */
+  configDir: string | null
 
   // 环境变量
   env: string[] | null
@@ -69,8 +75,13 @@ export const systemInfo: SystemInfo = {
   dowmload: null,
   appdata: null,
   resource: null,
+  configDir: null,
 
   env: []
 }
 
+export const configDir: string | null = null
+export const configPath: string | null = null
 
+export const extensionData: ExtensionData[] = []
+export const extensionProgress: ExtensionProgress[] = []

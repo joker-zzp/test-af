@@ -1,6 +1,8 @@
 import { ipcMain } from 'electron'
 import { appInfo, getUserSystemInfo, setWinTitle } from './app/base'
 import { onMessage } from './message'
+import { getSettingInfo, getSettingList, setSettingInfo } from './app/setting'
+import { doc } from './doc'
 
 /** 客户端配置数据 */
 export const config = {
@@ -18,14 +20,30 @@ export const config = {
 }
 
 const ipcMainHandler = {
-  'app-info': appInfo,
-  'system-info': getUserSystemInfo
-}
+  'app::info': appInfo,
+  'app::systemInfo': getUserSystemInfo,
+
+  /** 文档 */
+  'app::doc::rootDir': () => {},
+  'app::doc::query': doc.base.search,
+  'app::doc::create': doc.base.create,
+  'app::doc::delete': doc.base.delete,
+
+  /* 设置 */
+  'app::setting::list': getSettingList,
+  'app::setting::get': getSettingInfo,
+  'app::setting::set': setSettingInfo
+} as const
 
 const ipcMainOn = {
   'app-setTitle': setWinTitle,
   /* 接收消息 */
   'IPC-onMessage': onMessage
+} as const
+
+export type MainEvent = {
+  on: typeof ipcMainOn
+  handle: typeof ipcMainHandler
 }
 
 export const initEvent = (): void => {

@@ -6,10 +6,10 @@ import * as http from 'http'
 import path from 'path'
 import { randomUUID } from 'crypto'
 
-export { path }
+export { path, fs }
 
 /** 读取json数据 */
-export function readJsonData(filePath: string): unknown {
+export function readJsonData<T = unknown>(filePath: string): T {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 

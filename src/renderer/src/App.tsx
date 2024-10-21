@@ -1,40 +1,35 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { Box, CssBaseline, Stack, ThemeProvider, Typography } from '@mui/material'
 import { useEffect } from 'react'
+import { defaultTheme } from './theme'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-  const appinfo = () => window.electron.ipcRenderer.invoke('app-info')
+  const appinfo = () => window.clientEvent.invoke('app::info')
+  const systemUserInfo = () => window.clientEvent.invoke('app::setting::list')
 
   useEffect(() => {
     appinfo().then((res) => console.log(res))
+    systemUserInfo().then((res) => console.log(res))
   })
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <Box height={1} width={1} p={0.5}>
+        <Stack direction={'row'} width={1} height={1}>
+          {/* icon - 菜单 */}
+          <Box>
+            <Stack>
+              <Typography>test</Typography>
+            </Stack>
+          </Box>
+          <Box flexGrow={1}>
+            <Stack direction={'column'} height={1} border={1}>
+              <Typography>test</Typography>
+            </Stack>
+          </Box>
+        </Stack>
+      </Box>
+    </ThemeProvider>
   )
 }
 

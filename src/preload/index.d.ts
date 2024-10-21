@@ -1,7 +1,9 @@
-import { ElectronAPI } from '@electron-toolkit/preload'
+// import { ElectronAPI } from '@electron-toolkit/preload'
+import { Client } from './base'
 
 declare global {
   interface Window {
-    electron: ElectronAPI
+    // electron: ElectronAPI
+    clientEvent: Client
   }
 }

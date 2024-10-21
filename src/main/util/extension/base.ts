@@ -1,4 +1,7 @@
-import { Base } from '..'
+import { systemInfo } from '../../env'
+import { path } from '../base'
+
+const EXTENSION_MODULE = 'extension'
 
 /**
  * 扩展类型定义
@@ -10,16 +13,19 @@ export const EXTENSION_TYPE = {
     dir: 'other',
     name: 'other'
   },
+  /** 执行器 命令 */
   actuator: {
     key: 1,
     dir: 'actuator',
     name: 'acturator'
   },
+  /** 插件 */
   plugin: {
     key: 2,
     dir: 'plugins',
     name: 'plugin'
   },
+  /** 服务 */
   service: {
     key: 3,
     dir: 'services',
@@ -32,10 +38,15 @@ export type ExtensionType = keyof typeof EXTENSION_TYPE
 
 // 扩展接口
 export type ExtensionInterface = {
-  label: string
+  // 接口名称
+  label?: string
+  // 接口类型
   type: 'sendMsg' | 'exec' | 'data'
+  // 触发事件
   event?: string
+  // 触发状态
   state?: string
+  // 参数
   params: {
     [k: string]: string | number | boolean | null | undefined
   }
@@ -69,6 +80,8 @@ export type ExtensionData = {
   description?: string
   // 作者
   author?: string
+  // icon
+  icon?: string
   baseConfig?: {
     // 界面配置
     viewData?
@@ -109,4 +122,16 @@ export function fileToExtensionName(fileName: string) {
   return fileName.replace(/\.bat$|\.exe$|\.sh$/, '')
 }
 
-export const logmark = (...ks: string[]) => Base.logmark.utils('extension', ...ks)
+/** 扩展文件夹 */
+export const extensionDir = (type: ExtensionType) => {
+  if (!systemInfo.appdata) {
+    throw new Error('appdata not found')
+  }
+  return path.posix.join(systemInfo.appdata, EXTENSION_MODULE, type)
+}
+
+/** 扩展设置注册 -> appdata.conf */
+
+/** 取消扩展设置注册 */
+
+/** 下载扩展 */

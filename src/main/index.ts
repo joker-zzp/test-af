@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { appData } from './env'
+import { appData, systemInfo } from './env'
 import { initEvent } from './event'
 import { initSystemInfo } from './util'
 
@@ -14,7 +14,7 @@ function createWindow(): void {
     minHeight: 600,
     minWidth: 800,
     show: false,
-    title: appData.appConfig.name,
+    title: app.getName(),
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -48,8 +48,8 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
-
+  electronApp.setAppUserModelId('com.electron.af-test')
+  // 客户端名称
   initEvent()
   initSystemInfo()
 
@@ -62,6 +62,19 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // app 启动信息
+  console.log(`
+  应用启动信息:
+  name:     ${appData.appConfig.name}
+  version:  ${appData.appConfig.version}
+  env:      ${appData.appConfig.dev ? '开发' : '生产'}
+  user:     ${systemInfo.name}
+  appdata:  ${systemInfo.appdata}
+  system:   ${systemInfo.system}
+  language: ${systemInfo.language}
+  ----------------------------------------------
+  `)
 
   createWindow()
 
