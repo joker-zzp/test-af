@@ -66,13 +66,15 @@ app.whenReady().then(() => {
   // app 启动信息
   console.log(`
   应用启动信息:
-  name:     ${appData.appConfig.name}
-  version:  ${appData.appConfig.version}
-  env:      ${appData.appConfig.dev ? '开发' : '生产'}
-  user:     ${systemInfo.name}
-  appdata:  ${systemInfo.appdata}
-  system:   ${systemInfo.system}
-  language: ${systemInfo.language}
+  -----------------------------------------------
+  name:           ${appData.appConfig.name}
+  version:        ${appData.appConfig.version}
+  env:            ${appData.appConfig.dev ? '开发' : '生产'}
+  user:           ${systemInfo.name}
+  appdata:        ${systemInfo.appdata}
+  system:         ${systemInfo.system}
+  systemVersion:  ${systemInfo.version}
+  language:       ${systemInfo.language}
   ----------------------------------------------
   `)
 

@@ -36,9 +36,9 @@ const ipcMainHandler = {
 } as const
 
 const ipcMainOn = {
-  'app-setTitle': setWinTitle,
-  /* 接收消息 */
-  'IPC-onMessage': onMessage
+  'app::base::setWinTitle': setWinTitle,
+  /* 处理消息 */
+  'app::message::receive': onMessage
 } as const
 
 export type MainEvent = {

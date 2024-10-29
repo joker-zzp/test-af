@@ -64,6 +64,13 @@ export function systemArch(): OsArch {
   }
 }
 
+/** 获取系统版本
+ * @returns string
+ */
+export function systemVersion(): string {
+  return os.version()
+}
+
 /** 获取用户信息 */
 export function getUserInfo() {
   const _userInfo = os.userInfo()

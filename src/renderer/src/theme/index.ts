@@ -76,7 +76,7 @@ export const defaultTheme = createTheme({
   palette: {
     mode: 'dark',
     common: {
-      black: '#000',
+      black: '#8759f2',
       white: '#fff'
     },
     primary: {
@@ -96,8 +96,8 @@ export const defaultTheme = createTheme({
       main: '#d20202'
     },
     background: {
-      paper: '#33314b',
-      default: 'black'
+      paper: '#C1C0FD',
+      default: '#33314b'
     },
     text: {
       primary: '#fff',

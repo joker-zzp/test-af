@@ -32,10 +32,10 @@ export const getUserSystemInfo = () => {
   return systemInfo
 }
 
-export const setWinTitle = (event, title?: string) => {
+export const setWinTitle = (event, ...title: string[]) => {
   const win = BrowserWindow.fromWebContents(event.sender)
   if (title) {
-    win?.setTitle(`${conf.name} - ${title}`)
+    win?.setTitle(`${title.join(' - ')} - ${conf.name}`)
   } else {
     win?.setTitle(conf.name)
   }

@@ -10,6 +10,7 @@
     "composite": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "outDir": "build",
     "paths": {
       "@renderer/*": [
         "src/renderer/src/*"

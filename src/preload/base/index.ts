@@ -2,14 +2,9 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { MainEvent } from '../../main/event'
 
 export const clientEvent = {
-  on: (
-    channel: keyof MainEvent['on'],
-    callback: (...args) => void
-  ): MainEvent['on'][typeof channel] => electronAPI.ipcRenderer.on(channel, callback),
-  invoke: (
-    channel: keyof MainEvent['handle'],
-    ...args
-  ): Promise<MainEvent['handle'][typeof channel]> =>
+  send: (channel: keyof MainEvent['on'], ...args: Parameters<MainEvent['on'][typeof channel]>[1]) =>
+    electronAPI.ipcRenderer.send(channel, ...args),
+  invoke: (channel: keyof MainEvent['handle'], ...args) =>
     electronAPI.ipcRenderer.invoke(channel, ...args)
 }
 

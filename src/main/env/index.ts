@@ -41,6 +41,8 @@ type SystemInfo = {
   platform: string | null
   /** 系统架构 */
   arch: string | null
+  /** 系统版本 */
+  version: string | null
   /** 语言 */
   language: string | null
 
@@ -67,6 +69,7 @@ export const systemInfo: SystemInfo = {
   system: null,
   platform: null,
   arch: null,
+  version: null,
   language: null,
 
   name: null,
